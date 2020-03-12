@@ -7,7 +7,7 @@ import { Layout, SEO } from "../components"
 import { Thumbnail, OptionPicker } from "./components"
 import { graphql } from "gatsby"
 import { prepareVariantsWithOptions, prepareVariantsImages } from "./utilities"
-import { useAddItemToCart } from "../context/StoreContext"
+import { useAddItemToCart } from "gatsby-theme-shopify-core"
 
 const ProductPage = ({ data: { shopifyProduct: product } }) => {
   const colors = product.options.find(
@@ -53,9 +53,11 @@ const ProductPage = ({ data: { shopifyProduct: product } }) => {
       </Grid>
     ) : null
 
-  function handleAddToCart() {
-    addItemToCart(variant.shopifyId, 1)
-    setAddedToCartMessage("🛒 Added to your cart!")
+  async function handleAddToCart() {
+    const result = await addItemToCart(variant.shopifyId, 1)
+    if (result) {
+      setAddedToCartMessage("🛒 Added to your cart!")
+    }
   }
 
   return (

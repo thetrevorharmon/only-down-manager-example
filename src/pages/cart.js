@@ -5,13 +5,15 @@ import Img from "gatsby-image"
 import { Grid, Divider, Button, Card, Text } from "@theme-ui/components"
 import { Layout, SEO, Link } from "../components"
 import { useStaticQuery, graphql } from "gatsby"
+import { useCartTotals } from "../context/StoreContext"
+
 import {
-  useCartItems,
-  useCartTotals,
   useAddItemToCart,
-  useRemoveItemFromCart,
-  useCheckout,
-} from "../context/StoreContext"
+  useCartItems,
+  useCheckoutUrl,
+  useCart,
+  useUpdateItemQuantity,
+} from "gatsby-theme-shopify-core"
 
 const CartPage = () => {
   const {
@@ -46,8 +48,9 @@ const CartPage = () => {
 
   const lineItems = useCartItems()
   const { tax, total } = useCartTotals()
-  const removeFromCart = useRemoveItemFromCart()
-  const checkout = useCheckout()
+  const updateItemQuantity = useUpdateItemQuantity()
+  const checkoutUrl = useCheckoutUrl()
+  const { cart } = useCart()
   const addItemToCart = useAddItemToCart()
 
   const betterProductHandles = products.map(({ handle, variants }) => {
@@ -111,7 +114,7 @@ const CartPage = () => {
           </li>
         </Styled.ul>
       </div>
-      <Button variant="link" onClick={() => removeFromCart(item.id)}>
+      <Button variant="link" onClick={() => updateItemQuantity(item.id, 0)}>
         Delete
       </Button>
       <Text
@@ -182,9 +185,12 @@ const CartPage = () => {
               {total}
             </Text>
           </Grid>
-          <Button sx={{ mt: 4, width: "100%" }} onClick={checkout}>
-            Checkout
-          </Button>
+          <br />
+          {checkoutUrl != null ? (
+            <Link sx={{ mt: 4, width: "100%" }} href={checkoutUrl} isButton>
+              Checkout
+            </Link>
+          ) : null}
         </Card>
       </div>
     </Layout>
