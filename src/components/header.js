@@ -2,7 +2,7 @@
 import { Styled, jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { Link } from "../components"
-import { useCartCount } from "gatsby-theme-shopify-core"
+import { useCartCount } from "gatsby-theme-shopify-manager"
 
 const Header = ({ siteTitle }) => {
   const count = useCartCount()

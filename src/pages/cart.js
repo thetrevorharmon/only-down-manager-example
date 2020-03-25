@@ -5,7 +5,6 @@ import Img from "gatsby-image"
 import { Grid, Divider, Button, Card, Text } from "@theme-ui/components"
 import { Layout, SEO, Link } from "../components"
 import { useStaticQuery, graphql } from "gatsby"
-import { useCartTotals } from "../context/StoreContext"
 
 import {
   useAddItemToCart,
@@ -13,7 +12,7 @@ import {
   useCheckoutUrl,
   useCart,
   useUpdateItemQuantity,
-} from "gatsby-theme-shopify-core"
+} from "gatsby-theme-shopify-manager"
 
 const CartPage = () => {
   const {
@@ -47,10 +46,11 @@ const CartPage = () => {
   `)
 
   const lineItems = useCartItems()
-  const { tax, total } = useCartTotals()
   const updateItemQuantity = useUpdateItemQuantity()
   const checkoutUrl = useCheckoutUrl()
+  console.log(checkoutUrl)
   const { cart } = useCart()
+  const { tax, total } = getCartTotals(cart)
   const addItemToCart = useAddItemToCart()
 
   const betterProductHandles = products.map(({ handle, variants }) => {
@@ -60,6 +60,32 @@ const CartPage = () => {
       handle,
     }
   })
+
+  function getCartTotals(cart) {
+    if (cart == null) {
+      return { tax: "-", total: "-" }
+    }
+
+    const tax = cart.totalTaxV2
+      ? `$${Number(cart.totalTaxV2.amount).toFixed(2)}`
+      : "-"
+    const total = cart.totalPriceV2
+      ? `$${Number(cart.totalPriceV2.amount).toFixed(2)}`
+      : "-"
+
+    return {
+      tax,
+      total,
+    }
+  }
+
+  async function removeFromCart(variantId) {
+    try {
+      await updateItemQuantity(variantId, 0)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   function getHandleForVariant(variantId) {
     const selectedProduct = betterProductHandles.find(product => {
@@ -114,7 +140,7 @@ const CartPage = () => {
           </li>
         </Styled.ul>
       </div>
-      <Button variant="link" onClick={() => updateItemQuantity(item.id, 0)}>
+      <Button variant="link" onClick={() => removeFromCart(item.variant.id)}>
         Delete
       </Button>
       <Text
@@ -187,9 +213,9 @@ const CartPage = () => {
           </Grid>
           <br />
           {checkoutUrl != null ? (
-            <Link sx={{ mt: 4, width: "100%" }} href={checkoutUrl} isButton>
+            <a sx={{ mt: 4, width: "100%" }} href={checkoutUrl} target="_blank">
               Checkout
-            </Link>
+            </a>
           ) : null}
         </Card>
       </div>

@@ -27,7 +27,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-theme-shopify-core`,
+      resolve: `gatsby-theme-shopify-manager`,
       options: {
         shopName: process.env.SHOP_NAME,
         accessToken: process.env.SHOP_TOKEN,
