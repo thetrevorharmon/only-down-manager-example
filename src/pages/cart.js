@@ -213,7 +213,12 @@ const CartPage = () => {
           </Grid>
           <br />
           {checkoutUrl != null ? (
-            <a sx={{ mt: 4, width: "100%" }} href={checkoutUrl} target="_blank">
+            <a
+              sx={{ mt: 4, width: "100%" }}
+              href={checkoutUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Checkout
             </a>
           ) : null}
