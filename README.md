@@ -1,5 +1,5 @@
-# Sell Things Fast
+# Only Down - Example
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3bdc46c0-850a-4bbd-af34-2b7f16d7f181/deploy-status)](https://app.netlify.com/sites/sell-things-fast/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/535b056e-8b31-41e2-b90d-ad909b1ceb23/deploy-status)](https://app.netlify.com/sites/only-down-manager-example/deploys)
 
-This repo is an exploration of building a Shopify store on top of Gatsby. It features Theme UI as the theming engine, and deploys to Netlify.
+This repo is an example of a site you can build using [gatsby-theme-shopify-manager](https://github.com/thetrevorharmon/gatsby-theme-shopify-manager).
