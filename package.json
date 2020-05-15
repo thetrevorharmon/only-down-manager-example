@@ -20,7 +20,7 @@
     "gatsby-plugin-theme-ui": "^0.2.43",
     "gatsby-source-filesystem": "^2.1.36",
     "gatsby-source-shopify": "^3.0.41",
-    "gatsby-theme-shopify-manager": "^0.1.1",
+    "gatsby-theme-shopify-manager": "^0.1.5",
     "gatsby-theme-style-guide": "^0.2.49",
     "gatsby-transformer-sharp": "^2.3.3",
     "normalize.css": "^8.0.1",
