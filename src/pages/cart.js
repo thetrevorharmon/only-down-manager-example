@@ -49,7 +49,7 @@ const CartPage = () => {
   const updateItemQuantity = useUpdateItemQuantity()
   const checkoutUrl = useCheckoutUrl()
   console.log(checkoutUrl)
-  const { cart } = useCart()
+  const cart = useCart()
   const { tax, total } = getCartTotals(cart)
   const addItemToCart = useAddItemToCart()
 
